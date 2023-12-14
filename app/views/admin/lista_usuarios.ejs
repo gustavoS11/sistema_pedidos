@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Lista de usuários</title>
+</head>
+<body>
+    <main>
+        <%- include('../../public/menuAdmin.html') %>
+
+                    <h1>Lista de usuários</h1>
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Opções</th>
+                </tr>
+                <% for(let i=0; i < usuario.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= usuario[i].nome %>
+                        </td>
+                        <td>
+                            <%= usuario[i].email %>
+                        </td>
+                        <td>
+                            <a href="/admin/lista_usuarios/editar/<%= usuario[i].id %>">Editar</a>
+                            <a href="/admin/lista_usuarios/excluir/<%= usuario[i].id %>">Excluir</a>
+                        </td>
+                    </tr>
+                    <% } %>
+            </table>
+    </main>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar senha</title>
+</head>
+<body>
+    <% if (erros) { %>
+        <ul>
+            <% for (let i=0; i < erros.length; i++) { %>
+                <li>
+                    <%= erros[i].msg %>
+                </li>
+                <% } %>
+        </ul>
+        <% } %>
+            <main>
+                <h1>Alterar senha</h1>
+                <form action="/usuario/alterar_senha" method="post">
+                    <label for="nome">Nome</label>
+                    <br>
+                    <input type="text" name="nome" id="nome" value="<%= usuario[0].nome %>" readonly>
+                    <br>
+                    <label for="email">Email</label>
+                    <br>
+                    <input type="email" name="email" id="email" value="<%= usuario[0].email %>" readonly>
+                    <br>
+                    <label for="senha">Senha</label>
+                    <br>
+                    <input type="password" name="senha" id="senha">
+                    <br>
+                    <label for="confirmar_senha">Confirmar senha</label>
+                    <br>
+                    <input type="password" name="confirmar_senha" id="confirmar_senha">
+                    <br><br>
+                    <input type="submit" value="Salvar">
+                </form>
+            </main>
+    </body>
+</html>

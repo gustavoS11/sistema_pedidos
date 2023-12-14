@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Admin</title>
+</head>
+<body>
+    <%- include('../../public/menuAdmin.html') %>
+            <main>
+                <form action="/admin/cadastrar_usuario" method="post">
+                    <label>Nome</label>
+                    <br>
+                    <input type="text" name="nome" id="nome" placeholder="Insira o nome do usuário">
+                    <br>
+                    <label>Email</label>
+                    <br>
+                    <input type="email" name="email" id="email" placeholder="Insira o email do usuário">
+                    <br>
+                    <label>Senha</label>
+                    <br>
+                    <input type="password" name="senha" id="senha" placeholder="Insira a senha do usuário">
+                    <br>
+                    <label>admin/cliente</label>
+                    <br>
+                    <select name="id_tipo_usuario">
+                        <option value="">Selecione</option>
+                        <% for(let i=0; i < tipos.length; i++) { %>
+                            <option value="<%= tipos[i].id %>">
+                                <%= tipos[i].descricao %>
+                            </option>
+                            <% } %>
+                    </select> <br> <br>
+                    <input type="submit" value="Cadastrar">
+                </form>
+            </main>
+</body>
+</html>
