@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+</head>
+<body>
+    <%- include('../../public/menuAdmin.html') %>
+    <main>
+        <h1>Lista de pedidos abertos</h1>
+        <table>
+            <tr>
+                <th>Id do pedido</th>
+                <th>Status do pedido</th>
+            </tr>
+            <%for(let i=0;i<pedidos.length;i++)
+            { %>
+            <tr>
+                <td><%= pedidos[i].id %></td>
+                <td><%= pedidos[i].descricao %></td>
+            </tr>
+            <% } %>
+        </table>
+    </main>
+</body>
+</html>

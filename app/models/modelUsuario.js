@@ -40,7 +40,12 @@ Usuario.prototype.alterarDados = function (id, dados, callback) {
   this._conexao.query(`update usuario set ? where id = ${id}`, dados, callback);
 };
 Usuario.prototype.alterarSenha = function (id, dados, callback) {
-  this._conexao.query(`update usuario set ? where id = ${id}`, dados, callback);
+  const senha = this._crypto
+    .createHash("md5")
+    .update(dados.senha)
+    .digest("hex");
+
+  this._conexao.query(`update usuario set senha = '${senha}' where id = ${id}`, dados, callback);
 };
 module.exports = function () {
   return Usuario;

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo do pedido</title>
+</head>
+<body>
+    <main>
+        <%- include('../../public/menu.html') %>
+        <h1>Resumo do pedido</h1>
+  
+        <% if (erros) { %>
+            <ul>
+              <% for (let i = 0; i < erros.length; i++) { %>
+                <li><%= erros[i].msg %></li>
+              <% } %>
+            </ul>
+        <% } %>
+        <table>
+          <tr>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Subtotal</th>
+          </tr>
+          <% produtos_pedido.forEach(produto_pedido => { %>
+            <tr>
+              <td><%= produto_pedido.descricao %></td>
+              <td><%= produto_pedido.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>
+              <td><%= produto_pedido.quantidade %></td>
+              <% 
+                let subtotal = 0;
+                subtotal = produto_pedido.preco * produto_pedido.quantidade 
+              %>
+              <td><%= subtotal %></td>
+            </tr>
+          <% }) %>
+        </table>
+        <h3>Valor total: <%= valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></h3>
+    </main>
+</body>
+</html>

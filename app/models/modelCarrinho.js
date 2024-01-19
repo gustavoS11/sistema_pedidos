@@ -14,9 +14,9 @@ Carrinho.prototype.existeProduto = function (idProduto, idPedido) {
         })
     })
 }
-Carrinho.prototype.alterarQuantidade = function (idProduto, idPedido) {
+Carrinho.prototype.getProdutoPedido = function (idProduto, idPedido) {
     return new Promise((resolve, reject) => {
-        this._conexao.query(`UPDATE carrinho set quantidade = quantidade + 1 WHERE id_produto = ${idProduto} AND id_pedido = ${idPedido}`, function(errors, result) {
+        this._conexao.query(`SELECT * FROM carrinho WHERE id_pedido =  ${idPedido} AND id_produto = ${idProduto};`, function(errors, result) {
             resolve(result);
         })
     })
@@ -31,12 +31,23 @@ Carrinho.prototype.inserirProduto = function (idProduto, idPedido) {
 Carrinho.prototype.getProdutosPedido = function (idPedido) {
     return new Promise((resolve, reject) => {
         this._conexao.query(`SELECT * FROM carrinho WHERE id_pedido =  ${idPedido};`, function(errors, result) {
-            console.log(errors)
             resolve(result);
         })
     })
 }
-
+Carrinho.prototype.aumentarQuantidade = function (idProduto, idPedido) {
+    return new Promise((resolve, reject) => {
+        this._conexao.query(`UPDATE carrinho set quantidade = quantidade + 1 WHERE id_produto = ${idProduto} AND id_pedido = ${idPedido}`, function(errors, result) {
+            resolve(result);
+        })
+    })
+}
+Carrinho.prototype.alterarQuantidade = function (idProduto, dados, callback) {
+        this._conexao.query(`UPDATE carrinho set quantidade = ${dados.quantidade} WHERE id_produto = ${idProduto}`, callback)
+}
+Carrinho.prototype.excluirItem = function (id, callback) {
+    this._conexao.query(`delete from carrinho where id = ${id}`, callback);
+  };
 module.exports = function () {
     return Carrinho;
 }

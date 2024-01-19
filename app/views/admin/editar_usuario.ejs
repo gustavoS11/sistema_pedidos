@@ -6,7 +6,8 @@
     <title>Editar Usuário</title>
 </head>
 <body>
-    <form action="/admin/lista_usuarios/salvar/<%= usuario[0].id %>" method="post">
+    <%- include('../../public/menuAdmin.html') %>
+    <form action="/admin/usuarios/salvar/<%= usuario[0].id %>" method="post">
         <label>Nome</label> <br>
         <input type="text" name="nome" id="nome" value="<%= usuario[0].nome %>"> <br>
         <label>Email</label> <br>

@@ -6,6 +6,7 @@
     <title>Editar Produto</title>
 </head>
 <body>
+    <%- include('../../public/menuAdmin.html') %>
     <main>
         <form action="/admin/produtos/salvar/<%=produto[0].id%>" method="post">
             <label>Descrição</label> <br>

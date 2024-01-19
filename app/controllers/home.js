@@ -12,3 +12,13 @@ module.exports.indexAdmin = function (app, req, res) {
   }
   res.render("home/indexAdmin");
 };
+module.exports.sair = function (app, req, res) {
+  const conexao = app.config.conexao;
+  const modelPedido = new app.app.models.modelPedido(conexao);
+  const idUsuario = req.session.id_usuario;
+  req.session.destroy(function (error) {
+    modelPedido.cancelarPedidoAberto(idUsuario, function (error, result) {
+      res.redirect('/usuario/login');
+    });
+  });
+};

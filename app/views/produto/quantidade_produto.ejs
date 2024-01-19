@@ -7,7 +7,18 @@
 </head>
 <body>
     <main>
-        
+        <label for="input-description/">Produto</label>
+        <br>
+        <input type="text" name="input-description" id="input-description" value="<%= produto.descricao %>" readonly>
+        <form action="/alterarQuantidade/<%= produto.id %>" method="post">
+            <div>
+                <label for="quantidade">Insira a quantidade</label>
+                <br>
+                <input type="text" name="quantidade" id="quantidade" value="<%= produto_pedido[0].quantidade %>">
+            </div>
+            <br>
+            <input type="submit" value="Confirmar">
+        </form>
     </main>
 </body>
 </html>

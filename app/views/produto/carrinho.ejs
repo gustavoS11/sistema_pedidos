@@ -11,34 +11,36 @@
       <%- include('../../public/menu.html') %>
       <h1>Carrinho</h1>
 
-    <% if (erros) { %>
-        <ul>
+      <% if (erros) { %>
+          <ul>
             <% for (let i = 0; i < erros.length; i++) { %>
-                <li><%= erros[i].msg %></li>
+              <li><%= erros[i].msg %></li>
             <% } %>
-        </ul>
-    <% } %>
-
-    <table>
+          </ul>
+      <% } %>
+      <table>
         <tr>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th></th>
+          <th>Descrição</th>
+          <th>Preço</th>
+          <th>Quantidade</th>
+          <th></th>
         </tr>
         <% produtos_pedido.forEach(produto_pedido => { %>
-            <tr>
-                <td><%= produto_pedido.descricao %></td>
-                <td><%= produto_pedido.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>
-                <td><%= produto_pedido.quantidade %></td>
-                <td>
-                    <a href="/renderAlterar-quantidade/<%= produto_pedido.id %>">Alterar quantidade</a>
-                    <a href="/excluir/<%= produto_pedido.id %>">Excluir</a>
-                </td>
-            </tr>
+          <tr>
+            <td><%= produto_pedido.descricao %></td>
+            <td><%= produto_pedido.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></td>
+            <td><%= produto_pedido.quantidade %></td>
+            <td>
+              <a href="/render-alterar-quantidade/<%= produto_pedido.id_produto %>">Alterar quantidade</a>
+              <a href="/excluir/<%= produto_pedido.id %>">Excluir</a>
+            </td>
+          </tr>
         <% }) %>
-    </table>
-    <h3>Valor total: <%= valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></h3>
-    <a href="/finalizar-pedido">Finalizar Pedido</a>
+      </table>
+      <h3>Valor total: <%= valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %></h3>
+        <form action="/finalizar-pedido/<%= idPedido %>" method="post">
+          <input type="submit" value="Finalizar pedido">
+        </form>
+    </main>
   </body>
 </html>

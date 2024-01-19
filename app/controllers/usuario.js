@@ -135,8 +135,3 @@ module.exports.alterar_senha = function (app, req, res) {
     res.redirect("/");
   });
 };
-module.exports.sair = function (app, req, res) {
-  req.session.destroy(function (error) {
-    res.redirect("/usuario/login");
-  });
-};

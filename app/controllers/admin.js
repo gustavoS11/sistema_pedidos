@@ -41,7 +41,7 @@ module.exports.cadastrar_usuario = function (app, req, res) {
         renderizarCadastro(erros);
       } else {
         modelUsuario.cadastrar(dados, function (error, result) {
-          res.redirect("/usuario/login");
+          res.redirect("/admin/render_lista_usuarios");
         })
       }
     })
@@ -63,8 +63,8 @@ module.exports.cadastrar_produto = function (app, req, res) {
     return
   }
   const dados = req.body;
-  req.assert("descricao", "Você deve preencher o campo Nome").notEmpty();
-  req.assert("preco", "Você deve preencher o campo E-mail").notEmpty();
+  req.assert("descricao", "Você deve preencher o campo Descrição").notEmpty();
+  req.assert("preco", "Você deve preencher o campo Preço").notEmpty();
   function validarCampos() {
     const erros = req.validationErrors();
     return erros;
@@ -79,11 +79,11 @@ module.exports.cadastrar_produto = function (app, req, res) {
     const conexao = app.config.conexao;
     const modelProduto = new app.app.models.modelProduto(conexao);
     modelProduto.cadastroProduto(dados, function (error, result) {
-      res.redirect("/indexAdmin");
+      res.redirect("/admin/render_lista_produtos");
     })
   }
 }
-module.exports.getTipos = function (app, req, res) {
+module.exports.get_tipos = function (app, req, res) {
   if (req.session.id_tipo_usuario != 2) {
     res.render("usuario/login", {erros : {}});
     return
@@ -94,7 +94,7 @@ module.exports.getTipos = function (app, req, res) {
     res.render("admin/cadastro", { erros: {}, tipos: result });
   })
 }
-module.exports.listarUsuarios = function (app, req, res) {
+module.exports.render_lista_usuarios = function (app, req, res) {
   if (req.session.id_tipo_usuario != 2) {
     res.render("usuario/login", {erros : {}});
     return
@@ -105,7 +105,7 @@ module.exports.listarUsuarios = function (app, req, res) {
     res.render("admin/lista_usuarios", { usuario: result });
   })
 }
-module.exports.listarProdutos = function (app, req, res) {
+module.exports.render_lista_produtos = function (app, req, res) {
   if (req.session.id_tipo_usuario != 2) {
     res.render("usuario/login", {erros : {}});
     return
@@ -200,4 +200,21 @@ module.exports.salvar_produto = function (app,req,res) {
       res.render("admin/lista_produtos", {produtos : result})
     })
   })
+}
+module.exports.render_lista_pedidos = async function (app, req, res) {
+  if (req.session.id_tipo_usuario != 2) {
+    res.render("usuario/login", {erros : {}});
+    return
+  }
+  
+  const conexao = app.config.conexao;
+  const modelPedido = new app.app.models.modelPedido(conexao);
+  const pedidos = await modelPedido.getPedidos()
+
+
+  for(let i=0;i<pedidos.length;i++)
+  {
+    pedidos[i].descricao = await modelPedido.getStatusById(pedidos[i].id_status)
+  };
+  res.render('admin/lista_pedidos', {pedidos : pedidos})
 }

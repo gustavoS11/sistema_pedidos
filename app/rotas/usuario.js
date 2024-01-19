@@ -11,9 +11,6 @@ module.exports = function (app) {
   app.post("/usuario/validar", function (req, res) {
     app.app.controllers.usuario.validar(app, req, res);
   });
-  app.get("/usuario/sair", function (req, res) {
-    app.app.controllers.usuario.sair(app, req, res);
-  });
   app.get("/usuario/render_alterar_dados", function (req, res) {
     app.app.controllers.usuario.render_alterar_dados(app, req, res);
   });
